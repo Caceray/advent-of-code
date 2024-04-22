@@ -50,16 +50,19 @@ def get_label(hand, joker):
         elif label == 1:
             label = 3
         elif label == 2:
-            label = 4
+            if hand.count("J") == 1:
+                label = 4
+            else:
+                label = 5
         elif label == 3:
             label = 5
         elif label == 4:
-            label = 5
+            label = 6
         elif label == 5:
             label = 6
         else:
             pass
-#            raise NotImplementedError(hand, label)
+
     return label
     
 def compare_hands(input, card_value, joker):
@@ -99,14 +102,19 @@ def part1():
     
     
 def part2():
-    # J is lower than 2
+    """
+    Specific rules for Jack (J):
+        - Rule 1 : Lower than 2
+        - Rule 2 : Can be used as joker
+    """
+    
+    # Rule 1
     order = "AKQT" + "".join([str(x) for x in range(9,1,-1)]) + "J"
     card_value = {s:i for i,s in enumerate(order[::-1])}
     
     input = get_input()
     compare_hands(input, card_value, joker=True)
-    
-    # 246371224 too low
+
 if __name__== "__main__":
     import sys
 
